@@ -35,27 +35,10 @@ public class FuseMount {
 
 		try {
 			Mounter mounter = FuseMountFactory.getMounter();
-			
-			/*
-			EnvironmentVariables envVars ;
-
-			if (mountFlags != null) {
-				ArrayList<String> defaultMountFlags = new ArrayList<String>(Arrays.asList(mounter.defaultMountFlags()));
-				for (String it : mountFlags.split(",")) {
-					defaultMountFlags.add("-o"+it.replace(' ','='));
-				}
-				String[] newMountFlags = defaultMountFlags.toArray(new String[defaultMountFlags.size()]);
-				envVars = EnvironmentVariables.create().withFlags(newMountFlags)
-							.withMountPoint(mountPoint).build();
-			}else{
-				envVars = EnvironmentVariables.create().withFlags(mounter.defaultMountFlags())
-							.withMountPoint(mountPoint).build();
-			}
-			*/
 			EnvironmentVariables envVars = EnvironmentVariables.create().withFlags(mounter.defaultMountFlags())
-			.withMountPoint(mountPoint).build();
+					.withMountPoint(mountPoint).build();
 			
-			LOG.error("Nount Flag is {}", mountFlags);
+			LOG.error("Mount Flag is {}", mountFlags);
 			
 			
 			mnt = mounter.mount(vaultRoot, envVars);
