@@ -35,8 +35,19 @@ public class FuseMount {
 
 		try {
 			Mounter mounter = FuseMountFactory.getMounter();
+			
+			
+			ArrayList<String> defaultMountFlags = new ArrayList<String>(Arrays.asList(mounter.defaultMountFlags()));
+			
+			if (mountFlags != null) {
+				for (String it : mountFlags.split(",")) {
+					defaultMountFlags.add("-o"+it.replace(' ','='));
+				}
+			}
+			String[] newMountFlags = defaultMountFlags.toArray(new String[defaultMountFlags.size()]);
+
 			EnvironmentVariables envVars = EnvironmentVariables.create() //
-					.withFlags(mounter.defaultMountFlags()) //
+					.withFlags(newMountFlags) //
 					.withFileNameTranscoder(mounter.defaultFileNameTranscoder()) //
 					.withMountPoint(mountPoint).build();
 			mnt = mounter.mount(vaultRoot, envVars);
