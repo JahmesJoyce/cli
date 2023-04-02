@@ -35,12 +35,10 @@ public class FuseMount {
 
 		try {
 			Mounter mounter = FuseMountFactory.getMounter();
-			EnvironmentVariables envVars = EnvironmentVariables.create().withFlags(mounter.defaultMountFlags())
+			EnvironmentVariables envVars = EnvironmentVariables.create() //
+					.withFlags(mounter.defaultMountFlags()) //
+					.withFileNameTranscoder(mounter.defaultFileNameTranscoder()) //
 					.withMountPoint(mountPoint).build();
-			
-			LOG.error("Mount Flag is {}", mountFlags);
-			
-			
 			mnt = mounter.mount(vaultRoot, envVars);
 			LOG.info("Mounted to {}", mountPoint);
 		} catch (FuseMountException e) {
