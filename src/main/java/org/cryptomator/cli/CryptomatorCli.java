@@ -92,7 +92,7 @@ public class CryptomatorCli {
 			String vaultPassword = args.getPasswordStrategy(vaultName).password();
 			CryptoFileSystemProperties properties = CryptoFileSystemProperties.cryptoFileSystemProperties()
 					.withKeyLoader(keyId -> {
-						Preconditions.checkArgument(SCHEME.equalsIgnoreCase(keyId.getScheme()), "Only2 supports keys with scheme " + SCHEME);
+						Preconditions.checkArgument(SCHEME.equalsIgnoreCase(keyId.getScheme()), "Only supports keys with scheme " + SCHEME);
 						Path keyFilePath = vaultPath.resolve(keyId.getSchemeSpecificPart());
 						return masterkeyFileAccess.load(keyFilePath, vaultPassword);
 					})
