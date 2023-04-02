@@ -55,8 +55,10 @@ public class FuseMount {
 			EnvironmentVariables envVars = EnvironmentVariables.create().withFlags(mounter.defaultMountFlags())
 			.withMountPoint(mountPoint).build();
 			
-			mnt = mounter.mount(vaultRoot, envVars);
+			LOG.error("Nount Flag is {}", mountFlags);
 			
+			
+			mnt = mounter.mount(vaultRoot, envVars);
 			LOG.info("Mounted to {}", mountPoint);
 		} catch (FuseMountException e) {
 			LOG.error("Can't mount: {}, error: {}", mountPoint, e.getMessage());
