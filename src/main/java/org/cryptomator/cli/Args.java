@@ -79,6 +79,13 @@ public class Args {
 				.valueSeparator() //
 				.hasArgs() //
 				.build());
+		OPTIONS.addOption(Option.builder() //
+				.longOpt("mountFlags") //
+				.argName("fuse mount flags") //
+				.desc("Format must be vaultName=fuse mount flags") //
+				.valueSeparator() //
+				.hasArgs() //
+				.build());		
 	}
 
 	private final String bindAddr;
@@ -89,6 +96,7 @@ public class Args {
 	private final Properties vaultPasswordFiles;
 	private final Map<String, PasswordStrategy> passwordStrategies;
 	private final Properties fuseMountPoints;
+	private final Properties fuseMountFlags;
 
 	public Args(CommandLine commandLine) throws ParseException {
 		if (commandLine.hasOption("bind") && commandLine.hasOption("port")) {
@@ -105,6 +113,7 @@ public class Args {
 		this.vaultPasswordFiles = commandLine.getOptionProperties("passwordfile");
 		this.passwordStrategies = new HashMap<>();
 		this.fuseMountPoints = commandLine.getOptionProperties("fusemount");
+		this.fuseMountFlags = commandLine.getOptionProperties("mountFlags");
 	}
 
 	public boolean hasValidWebDavConf() {
@@ -117,6 +126,10 @@ public class Args {
 
 	public int getPort() {
 		return port;
+	}
+	
+	public String fuseMountFlags(String vaultName) {
+		return fuseMountFlags.getProperty(vaultName);
 	}
 
 	public Set<String> getVaultNames() {
